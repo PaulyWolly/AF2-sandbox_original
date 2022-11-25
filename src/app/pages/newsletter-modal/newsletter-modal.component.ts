@@ -73,17 +73,13 @@ export class NewsletterModalComponent implements OnInit {
   }
 
   add(){
-
-    //createdAt : store.FieldValue.serverTimestamp();
-
-    console.log('Timestamp: ' +  this.timestamp);
     if(this.editObj){
       this.store.collection('list')
         .doc(this.editObj.id)
-        .update({name : this.name, personalInfo : this.personalInfo, email : this.email, timestamp : this.timestamp});
+        .update({name : this.name, personalInfo : this.personalInfo, email : this.email});
     } else {
       this.store.collection('list')
-        .add({name : this.name, personalInfo : this.personalInfo, email : this.email, timestamp : this.timestamp});
+        .add({name : this.name, personalInfo : this.personalInfo, email : this.email});
     }
     // this.closeDialog();
 
