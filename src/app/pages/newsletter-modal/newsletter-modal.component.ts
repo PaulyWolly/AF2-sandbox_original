@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-newsletter-modal',
   templateUrl: './newsletter-modal.component.html',
@@ -34,7 +33,7 @@ export class NewsletterModalComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.getAll();
+    // this.getAll();
     this.afAuth.onAuthStateChanged((user) => {
           // set up a subscription to always know the login status of the user
             if (user && user.email === 'pwelby@gmail.com') {
@@ -67,6 +66,7 @@ export class NewsletterModalComponent implements OnInit {
       .snapshotChanges()
       .subscribe((response) => {
         this.dataSource = response.map(item => {
+
         return Object.assign({id : item.payload.doc.id}, item.payload.doc.data())
       });
     })
@@ -79,7 +79,11 @@ export class NewsletterModalComponent implements OnInit {
         .update({name : this.name, personalInfo : this.personalInfo, email : this.email});
     } else {
       this.store.collection('list')
-        .add({name : this.name, personalInfo : this.personalInfo, email : this.email});
+        .add(
+          { name : this.name,
+            personalInfo : this.personalInfo,
+            email : this.email
+          });
     }
     // this.closeDialog();
 
