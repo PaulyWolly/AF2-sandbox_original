@@ -20,7 +20,7 @@ export class SignInComponent implements OnInit {
     await this.fbAuth.emailSignUp(email, password);
     if (this.fbAuth.isLoggedIn){
       this.isSignedIn = true;
-      console.log('Signed Up & isSignedIn = true!');
+      // console.log('Signed Up & isSignedIn = true!');
     }
   }
 

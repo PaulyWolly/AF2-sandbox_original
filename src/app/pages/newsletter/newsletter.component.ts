@@ -38,18 +38,19 @@ export class NewsletterComponent implements OnInit {
   ){}
 
   ngOnInit(){
+
+    console.log("getAll called to grab data from FB")
     this.getAll();
     this.afAuth.onAuthStateChanged((user) => {
-          // set up a subscription to always know the login status of the user
-            if (user && user.email === 'pwelby@gmail.com') {
-              console.log('Newsletter table showing');
-              this.isShown = !this.isShown;
-            } else {
-              this.isShown = this.isShown;
-              console.log('Newsletter table hidden');
-              this.openDialog();
-            }
-
+    // set up a subscription to always know the login status of the user
+      if (user && user.email === 'pwelby@gmail.com') {
+        console.log('Newsletter table showing');
+        this.isShown = !this.isShown;
+      } else {
+        this.isShown = this.isShown;
+        console.log('Newsletter table hidden');
+        this.openDialog();
+      }
     });
   }
 
@@ -109,7 +110,9 @@ export class NewsletterComponent implements OnInit {
     this.store.collection('list')
       .snapshotChanges()
       .subscribe((response) => {
+
         this.dataSource = response.map(item => {
+          console.log("==========response from Firebase: ", item)
         return Object.assign({id : item.payload.doc.id}, item.payload.doc.data())
       });
     })

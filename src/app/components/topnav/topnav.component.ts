@@ -38,8 +38,12 @@ export class TopnavComponent implements OnInit {
     private firestore: AngularFirestore,
     public route: Router
     ) {
-      this.userLoggedIn = false;
 
+     }
+
+    ngOnInit(): void {
+
+      this.userLoggedIn = false;
       this.afAuth.onAuthStateChanged((user) => {
         // set up a subscription to always know the login status of the user
           if (user) {
@@ -48,18 +52,16 @@ export class TopnavComponent implements OnInit {
               this.userLoggedIn = false;
           }
       });
-        console.log('Auth Service: loginUser: success' + this.email);
-     }
+      console.log('Auth Service: loginUser: success' + this.email);
 
-    ngOnInit(): void {
-      this.afAuth.authState.subscribe(user => {
-          console.log('Dashboard: user', user);
+      // this.afAuth.authState.subscribe(user => {
+      //     console.log('Dashboard: user', user);
 
-          if (user) {
-              //let emailLower = user.email.toLowerCase();
-              //this.user = this.firestore.collection('users').doc(emailLower).valueChanges();
-          }
-      });
+      //     if (user) {
+      //         //let emailLower = user.email.toLowerCase();
+      //         //this.user = this.firestore.collection('users').doc(emailLower).valueChanges();
+      //     }
+      // });
 
   }
 

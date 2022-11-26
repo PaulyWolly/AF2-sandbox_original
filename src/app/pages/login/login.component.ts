@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
       // if the user's logged in, navigate them to the dashboard
       //(NOTE: don't use afAuth.currentUser -- it's never null)
       this.route.navigate(['/Home']);
-      let email = this.user.email;
+
+      // let email = this.user.email;
 
       //console.log('USER LOGGED IN')
     } else [

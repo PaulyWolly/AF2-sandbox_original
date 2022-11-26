@@ -46,7 +46,7 @@ export class AuthService {
 
         this.isLoggedIn = true;
         this.showStatus(true);
-        console.log('Nice... you are now logged in!');
+        // console.log('Nice... you are now logged in!');
         this.router.navigate(['/Home']);
         localStorage.setItem('user', JSON.stringify(res.user));
         localStorage.setItem('userEmail', JSON.stringify(res.user?.email));

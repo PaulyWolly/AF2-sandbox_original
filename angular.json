@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/AngularFirebase-Sandbox",
+            "outputPath": "dist/af2-sandbox_original",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -115,5 +115,5 @@
       }
     }
   },
-  "defaultProject": "AngularFirebase-Sandbox"
+  "defaultProject": "af2-sandbox_original"
 }
