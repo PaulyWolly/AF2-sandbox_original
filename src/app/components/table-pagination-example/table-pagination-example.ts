@@ -25,7 +25,7 @@ export class TablePaginationExample implements OnInit {
 
 
   // Columns to show in table
-  displayedColumns: string[] = ['id', 'name', 'email', 'personalInfo', 'timeStamp', 'editObj'];
+  displayedColumns: string[] = ['name', 'email', 'personalInfo', 'timeStamp', 'editObj'];
 
   // For referencing a local dataset
   //dataSource = new MatTableDataSource<Users>(this.dataSourceInfo);
