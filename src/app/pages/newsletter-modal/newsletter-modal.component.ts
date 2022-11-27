@@ -35,84 +35,69 @@ export class NewsletterModalComponent implements OnInit {
   ngOnInit(): void {
     // this.getAll();
     this.afAuth.onAuthStateChanged((user) => {
-          // set up a subscription to always know the login status of the user
-            if (user && user.email === 'pwelby@gmail.com') {
-              console.log('Newsletter table showing');
-              this.isShown = !this.isShown;
-            } else {
-              this.isShown = this.isShown;
-              console.log('Newsletter table hidden');
-              // this.openDialog();
-            }
-
+      // set up a subscription to always know the login status of the user
+      if (user && user.email === 'pwelby@gmail.com') {
+        console.log('Newsletter table showing');
+        this.isShown = !this.isShown;
+      } else {
+        this.isShown = this.isShown;
+        console.log('Newsletter table hidden');
+        // this.openDialog();
+      }
     });
   }
-
-  // openDialog(){
-  //   this.btnShow.nativeElement.click();
-  // }
-
-  // closeDialog(){
-  //   this.btnClose.nativeElement.click();
-  //   this.route.navigate(['/Login']);
-  // }
 
   close() {
     this.route.navigate(['/Login']);
   }
 
-  getAll(){
-    this.store.collection('list')
-      .snapshotChanges()
-      .subscribe((response) => {
-        this.dataSource = response.map(item => {
-
-        return Object.assign({id : item.payload.doc.id}, item.payload.doc.data())
-      });
-    })
-  }
-
   add(){
+
+    const todayDate = new Date();
+    console.log("Date now: ", todayDate)
+
     if(this.editObj){
       this.store.collection('list')
         .doc(this.editObj.id)
-        .update({name : this.name, personalInfo : this.personalInfo, email : this.email});
+        .update(
+          {
+            name: this.name,
+            personalInfo: this.personalInfo,
+            email: this.email,
+            timeStamp: todayDate
+          });
     } else {
       this.store.collection('list')
         .add(
-          { name : this.name,
-            personalInfo : this.personalInfo,
-            email : this.email
+          {
+            name: this.name,
+            personalInfo: this.personalInfo,
+            email: this.email,
+            timeStamp: todayDate
           });
     }
-    // this.closeDialog();
+    this.clearEdit();
+    this.closeDialog();
 
     this.route.navigate(['/Login']);
     setTimeout(("alert('Your Newsletter info was saved'); ") , 5)
-
   }
 
-  edit(id : string){
-    this.store.collection('list')
-      .doc(id)
-      .get()
-      .subscribe((response) => {
-        this.editObj = Object.assign({id : response.id}, response.data());
-        this.name = this.editObj.name;
-        this.personalInfo = this.editObj.personalInfo;
-        this.email = this.editObj.email;
-        // this.openDialog();
-      })
+  closeDialog(){
+    this.clearEdit();
+    this.btnClose.nativeElement.click();
   }
 
-  delete(id : string){
-    const result = confirm('Are you sure you wish to delete?');
-    if (result) {
-      this.store.collection('list').doc(id).delete();
-    }
+  clearEdit(){
+    this.editObj = null;
+    this.name = "";
+    this.personalInfo = "";
+    this.email = "";
   }
 
 }
+
+
 //Quick example
 // <!--output 'Jun 15, 2015, 9:03:01 AM'-->
 // <div>{{myObj.timestamp.seconds * 1000 | date:'medium'}}</div>
