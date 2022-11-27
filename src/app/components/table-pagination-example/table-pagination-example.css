@@ -40,8 +40,9 @@ table {
 }
 
 .goBack-link {
-  height: 24px;
-  width: 24px;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
 }
 
 .main{
