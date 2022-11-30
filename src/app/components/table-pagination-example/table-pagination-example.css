@@ -11,6 +11,7 @@ table {
 .newsletter-contatiner {
   width: 1000px !important;
   overflow: hidden;
+  margin-top: 30px;
 }
 .m-100{
   margin: 100px;
@@ -40,8 +41,9 @@ table {
 }
 
 .goBack-link {
-  height: 24px;
-  width: 24px;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
 }
 
 .main{
@@ -107,6 +109,6 @@ table {
 
 
 .main-container {
-  padding-top: 40px;
+  padding-top: 100px;
 }
 

@@ -25,7 +25,7 @@ export class TablePaginationExample implements OnInit {
 
 
   // Columns to show in table
-  displayedColumns: string[] = ['id', 'name', 'email', 'personalInfo', 'timeStamp', 'editObj'];
+  displayedColumns: string[] = ['name', 'email', 'personalInfo', 'timeStamp', 'editObj'];
 
   // For referencing a local dataset
   //dataSource = new MatTableDataSource<Users>(this.dataSourceInfo);
@@ -143,7 +143,15 @@ export class TablePaginationExample implements OnInit {
 
   getAll(){
 
-      this.store.collection('list')
+    // const response = await item
+    //   .collection("list")
+    //   .doc(id)
+    //   .withConverter(TimestampConverter))
+    //   .get();
+
+    // The `response` will now contain a valid javascript date object instead of the default firestore timestamp.
+
+    this.store.collection('list')
       .snapshotChanges()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource(response.map(item => {
