@@ -6,6 +6,10 @@ import {AngularFirestore} from '@angular/fire/compat/firestore'
 
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatSort, Sort} from '@angular/material/sort';
+// import { serverTimestamp, doc } from 'firebase/firestore';
+
+// import * as firebase from 'firebase/compat/firestore'
+// import TimestampConverter from 'firestore-timestamp-formatter';
 
 
 /**
@@ -151,7 +155,6 @@ export class TablePaginationExample implements OnInit {
             { timeStamp: this.timeStamp },
             item.payload.doc.data()
           )
-
         }))
         // this.dataSource.Timestamp = this.timeStamp;
         this.dataSource.paginator = this.paginator;

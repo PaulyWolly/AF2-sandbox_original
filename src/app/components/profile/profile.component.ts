@@ -17,8 +17,9 @@ export class ProfileComponent implements OnInit {
   type: string | undefined;
 
   email = 'pwelby@gmail.com';
-  website = 'https://www.i-am-paulwelby.com';
+  website = 'https://www.i-am-paul.com';
   phone = '619-629-3770';
+  resume = 'https://my.indeed.com/resume/editor?hl=en_US&co=US'
 
   constructor(
     public afAuth: AngularFireAuth,
