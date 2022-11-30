@@ -5,6 +5,10 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "./assets/css/carousel.css";
 @import "./assets/css/product.css";
+
+body {
+  overflow: hidden;
+}
 /* html,
 body {
     /* height: 100%; */

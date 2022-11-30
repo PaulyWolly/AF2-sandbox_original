@@ -1,3 +1,4 @@
+import { Timestamp } from '@angular/fire/firestore/firebase';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -5,6 +6,10 @@ import {AngularFirestore} from '@angular/fire/compat/firestore'
 
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatSort, Sort} from '@angular/material/sort';
+// import { serverTimestamp, doc } from 'firebase/firestore';
+
+// import * as firebase from 'firebase/compat/firestore'
+// import TimestampConverter from 'firestore-timestamp-formatter';
 
 /**
  * @title Table with pagination
@@ -20,7 +25,7 @@ export class TablePaginationExample implements OnInit {
 
 
   // Columns to show in table
-  displayedColumns: string[] = ['name', 'email', 'personalInfo', 'editObj'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'personalInfo', 'timeStamp', 'editObj'];
 
   // For referencing a local dataset
   //dataSource = new MatTableDataSource<Users>(this.dataSourceInfo);
@@ -34,6 +39,7 @@ export class TablePaginationExample implements OnInit {
   editObj: any;
   actions: any;
 
+
   @ViewChild('btnShow')
   btnShow!: ElementRef;
   @ViewChild('btnClose')
@@ -46,11 +52,16 @@ export class TablePaginationExample implements OnInit {
   title = "Add a User";
   add: any;
   edit: any;
+  timeStamp!: Timestamp;
+
 
   constructor(
     private store: AngularFirestore,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    // fTimestamp: Timestamp
   ){}
+
+  // timeStamp: any = this.store.firestore.Timestamp.fromDate;
 
   ngOnInit() {
     this.getAll();
@@ -81,13 +92,28 @@ export class TablePaginationExample implements OnInit {
 
   addUser(){
 
+    const todayDate = new Date();
+    console.log("Date now: ", todayDate)
+
     if(this.editObj){
       this.store.collection('list')
         .doc(this.editObj.id)
-        .update({name: this.name, personalInfo: this.personalInfo, email: this.email});
+        .update(
+          {
+            name: this.name,
+            personalInfo: this.personalInfo,
+            email: this.email,
+            timeStamp: todayDate
+          });
     } else {
       this.store.collection('list')
-        .add({name: this.name, personalInfo: this.personalInfo, email: this.email});
+        .add(
+          {
+            name: this.name,
+            personalInfo: this.personalInfo,
+            email: this.email,
+            timeStamp: todayDate
+          });
     }
     this.clearEdit();
     this.closeDialog();
@@ -102,6 +128,7 @@ export class TablePaginationExample implements OnInit {
         this.name = this.editObj.name;
         this.personalInfo = this.editObj.personalInfo;
         this.email = this.editObj.email;
+        this.timeStamp = this.editObj.timeStamp;
         this.openDialog(this.edit);
       })
       this.clearEdit();
@@ -115,14 +142,23 @@ export class TablePaginationExample implements OnInit {
   }
 
   getAll(){
-    this.store.collection('list')
+
+      this.store.collection('list')
       .snapshotChanges()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource(response.map(item => {
-          return Object.assign({id: item.payload.doc.id}, item.payload.doc.data())
+          console.log("===============> item.payload.doc.data() response: ", item.payload.doc.data())
+
+          return Object.assign(
+            { id: item.payload.doc.id },
+            { timeStamp: this.timeStamp },
+            item.payload.doc.data()
+          )
         }))
+        // this.dataSource.Timestamp = this.timeStamp;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log("===============> response: ", response)
       });
   }
 

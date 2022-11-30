@@ -1,11 +1,16 @@
 body {
-  overflow: auto;
+  overflow: hidden;
 }
 table {
-  width: 100%;
+  width: 99%;
 }
 .container {
-  overflow: auto;
+  overflow: hidden;
+}
+
+.newsletter-contatiner {
+  width: 1000px !important;
+  overflow: hidden;
 }
 .m-100{
   margin: 100px;
